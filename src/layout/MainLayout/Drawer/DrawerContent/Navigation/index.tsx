@@ -1,21 +1,20 @@
-import { useEffect, useLayoutEffect, useState } from 'react';
+import { useLayoutEffect, useState } from 'react';
 
 // material-ui
-import { useTheme } from '@mui/material/styles';
 import { Box, Typography, useMediaQuery } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 
 // project import
-import NavGroup from './NavGroup';
 import menuItem from 'menu-items';
-import { Menu } from 'menu-items/dashboard';
+import NavGroup from './NavGroup';
 
-import { useSelector } from 'store';
-import useConfig from 'hooks/useConfig';
 import { HORIZONTAL_MAX_ITEM } from 'config';
+import useConfig from 'hooks/useConfig';
+import { useSelector } from 'store';
 
 // types
-import { NavItemType } from 'types/menu';
 import { MenuOrientation } from 'types/config';
+import { NavItemType } from 'types/menu';
 
 // ==============================|| DRAWER CONTENT - NAVIGATION ||============================== //
 
@@ -29,26 +28,6 @@ const Navigation = () => {
   const [selectedItems, setSelectedItems] = useState<string | undefined>('');
   const [selectedLevel, setSelectedLevel] = useState<number>(0);
   const [menuItems, setMenuItems] = useState<{ items: NavItemType[] }>({ items: [] });
-
-  useEffect(() => {
-    handlerMenuItem();
-    // eslint-disable-next-line
-  }, []);
-
-  let getMenu = Menu();
-  const handlerMenuItem = () => {
-    const isFound = menuItem.items.some((element) => {
-      if (element.id === 'group-dashboard') {
-        return true;
-      }
-      return false;
-    });
-
-    if (getMenu?.id !== undefined && !isFound) {
-      menuItem.items.splice(0, 0, getMenu);
-      setMenuItems(menuItem);
-    }
-  };
 
   useLayoutEffect(() => {
     setMenuItems(menuItem);
